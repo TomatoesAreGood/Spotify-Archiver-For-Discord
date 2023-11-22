@@ -92,6 +92,7 @@ class MyClient(discord.Client):
 
         for member in self.member_list:
             await self.update_playlist(member)
+            await asyncio.sleep(0.1)
 
         print("ALL PLAYLISTS UPDATED---------------")
 
@@ -186,7 +187,7 @@ class MyClient(discord.Client):
                     print([user.name for user in self.member_list])
                     print(self.song_list)
 
-                if message.content[23:].lower().startswith('stalk'):
+                if message.content[23:].lower().startswith('add'):
                     if message.content[28:].lower().startswith('all'):
                         playlists = sp.user_playlists(user=SPOTIFY_USER_ID)
                         existing_playlists = [playlist['name'] for playlist in playlists['items']]
@@ -195,37 +196,37 @@ class MyClient(discord.Client):
                             if member.name in existing_playlists:
                                 self.member_list.append(member)
                                 self.song_list.append([])
-                                print("STALKED NEW USER: " + member.name)
-                        await message.channel.send("stalked " + str(len(existing_playlists)) + " users")
+                                print("ADDED NEW USER: " + member.name)
+                        await message.channel.send("added " + str(len(existing_playlists)) + " users")
                     else:
                         for member in guild.members:
                             if str(member.id) in message.content[23:]:
                                 if member in self.member_list:
-                                    await message.channel.send("already stalking user")
+                                    await message.channel.send("user already added")
                                 else:
                                     self.member_list.append(member)
                                     self.song_list.append([])
-                                    await message.channel.send("user successfully stalked")
-                                    print("STALKED NEW USER: " + member.name)
+                                    await message.channel.send("user successfully added")
+                                    print("ADDED NEW USER: " + member.name)
 
-                if message.content[23:].lower().startswith('unstalk'):
+                if message.content[23:].lower().startswith('remove'):
                     for member in guild.members:
                         if str(member.id) in message.content[23:]:
                             if member in self.member_list:
                                 index = self.member_list.index(member)
                                 self.song_list.remove(self.song_list[index])
                                 self.member_list.remove(member)
-                                await message.channel.send("user successfully unstalked")
-                                print("UNSTALKED USER: " + member.name)
+                                await message.channel.send("user successfully removed")
+                                print("REMOVED USER: " + member.name)
                             else:
-                                await message.channel.send("user is not being stalked")
+                                await message.channel.send("user is not being added")
 
                 if message.content[23:].lower().startswith('list'):
                     list_1 = [user.name for user in self.member_list]
                     list_2 = [len(id_list) for id_list in self.song_list]
                     final_list = ' | '.join(f'{i + ": "}{j}' for i, j in zip(list_1, list_2))
                     if len(final_list) == 0:
-                        await message.channel.send("no one is stalked")
+                        await message.channel.send("no one is added")
                     else:
                         await message.channel.send(final_list)
 
@@ -237,7 +238,7 @@ class MyClient(discord.Client):
                                 playlist = findExistingPlaylist(member.name)
                                 await message.channel.send("https://open.spotify.com/playlist/" + str(playlist["id"]))
                             else:
-                                await message.channel.send(member.name + " is not being stalked")
+                                await message.channel.send(member.name + " is not being part of the list")
 
                 if message.content[23:].lower().startswith('getallplaylists'):
                     for member in self.member_list:
@@ -260,7 +261,7 @@ class MyClient(discord.Client):
 
                 if message.content[23:].lower().startswith('help'):
                     embed = discord.Embed(title='Bot Commands', description='There is no bot prefix, all commands must be called after pinging the bot. For more information about commands, use advhelp command')
-                    commands_text = "stalk @pingsomeone, unstalk @pingsomeone, list, getplaylist @pingsomeone, getallplaylists, updateplaylists, updatecovers "
+                    commands_text = "add @pingsomeone, remove @pingsomeone, list, getplaylist @pingsomeone, getallplaylists, updateplaylists, updatecovers "
                     embed.add_field(name="Commands(7)", value=commands_text, inline=True)
                     embed.add_field(name="Info(2)", value='help, advhelp', inline=False)
                     await message.channel.send(embed=embed)
@@ -269,19 +270,19 @@ class MyClient(discord.Client):
                     await message.channel.send("ALL COMMANDS ARE CALLED BY PINGING THE BOT")
                     await message.channel.send("------------------------------------------")
                     await message.channel.send(
-                        f"{'stalk @pingsomeone: ': <30}{'adds a user to the stalking list; all spotify activity will be recordered and the getplaylist command can be called on the user' : <50}")
+                        f"{'add @pingsomeone: ': <30}{'adds a user to the user_list list; all spotify activity will be recordered and the getplaylist command can be called on the user' : <50}")
                     await message.channel.send(
-                        f"{'unstalk @pingsomeone:': <30}{'removes a user from the stalking list' : <50}")
+                        f"{'remove @pingsomeone:': <30}{'removes a user from the user_list list' : <50}")
                     await message.channel.send(
-                        f"{'list: ': <50}{'returns a list of all stalked users and number of recorded songs IDs in the session' : <50}")
+                        f"{'list: ': <50}{'returns users inside of user_list and number of recorded songs IDs in the session' : <50}")
                     await message.channel.send(
                         f"{'getplaylist @pingsomeone: ': <30}{'returns the updated spotify playlist for all the songs recorded' : <50}")
                     await message.channel.send(
-                        f"{'getallplaylists: ': <30}{'updates and returns all playlists from stalking list' : <50}")
+                        f"{'getallplaylists: ': <30}{'updates and returns all playlists from the user_list' : <50}")
                     await message.channel.send(
                         f"{'updateplaylists: ': <30}{'updates all playlists (getallplaylists without sending the links)' : <50}")
                     await message.channel.send(
-                        f"{'updatecovers: ': <30}{'updates all playlist covers of the users in the stalking list' : <50}")
+                        f"{'updatecovers: ': <30}{'updates all playlist covers of the users in the user_list' : <50}")
 
         if message.content.lower() == "among us":
             await message.add_reaction("👍")
