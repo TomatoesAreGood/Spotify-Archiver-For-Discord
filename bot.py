@@ -261,8 +261,8 @@ class MyClient(discord.Client):
 
                 if message.content[23:].lower().startswith('help'):
                     embed = discord.Embed(title='Bot Commands', description='There is no bot prefix, all commands must be called after pinging the bot. For more information about commands, use advhelp command')
-                    commands_text = "add @pingsomeone, remove @pingsomeone, list, getplaylist @pingsomeone, getallplaylists, updateplaylists, updatecovers "
-                    embed.add_field(name="Commands(7)", value=commands_text, inline=True)
+                    commands_text = "add @pingsomeone, addall, remove @pingsomeone, list, getplaylist @pingsomeone, getallplaylists, updateplaylists, updatecovers "
+                    embed.add_field(name="Commands(8)", value=commands_text, inline=True)
                     embed.add_field(name="Info(2)", value='help, advhelp', inline=False)
                     await message.channel.send(embed=embed)
 
@@ -271,6 +271,8 @@ class MyClient(discord.Client):
                     await message.channel.send("------------------------------------------")
                     await message.channel.send(
                         f"{'add @pingsomeone: ': <30}{'adds a user to the user_list list; all spotify activity will be recordered and the getplaylist command can be called on the user' : <50}")
+                    await message.channel.send(
+                        f"{'addall: ': <30}{'goes through all the playlists that have already been created and adds all of them to user_list' : <50}")
                     await message.channel.send(
                         f"{'remove @pingsomeone:': <30}{'removes a user from the user_list list' : <50}")
                     await message.channel.send(
@@ -283,6 +285,7 @@ class MyClient(discord.Client):
                         f"{'updateplaylists: ': <30}{'updates all playlists (getallplaylists without sending the links)' : <50}")
                     await message.channel.send(
                         f"{'updatecovers: ': <30}{'updates all playlist covers of the users in the user_list' : <50}")
+    
 
         if message.content.lower() == "among us":
             await message.add_reaction("👍")
