@@ -7,6 +7,7 @@
 - Records songs from selected users in a server, and creates custom Spotify playlists based on the users' Spotify listening activity.
    - Spotify activity must be enabled on Discord
 - Able to keep track and dynamically update the playlists of multiple users at any point in time
+- Capable of easily managing playlists of 1000+ songs
 - Custom playlist covers (the user's profile picture) which are downloaded and uploaded to Spotify
 
 ## Steps to use
