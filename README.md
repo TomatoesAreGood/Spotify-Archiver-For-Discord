@@ -1,13 +1,13 @@
 # Spotify Archiver For Discord
- A Discord bot which tracks users' Spotify listening activity, and compiles the songs into a Spotify playlist. Get your friend's **MEGA** Spotify playlist with or without their permission.
+ A Discord bot which tracks users' Spotify listening activity, and compiles the songs into a Spotify playlist.
 
 ![image](https://github.com/TomatoesAreGood/Spotify-Archiver-For-Discord/assets/139704217/57c1a172-24c3-40ca-b1d2-d92d6efd2a7f)
 
 ## Features
 - Records songs from selected users in a server, and creates custom Spotify playlists based on the users' Spotify listening activity.
    - Spotify activity must be enabled on Discord
-- Able to keep track and dynamically update the playlists of multiple users at any point in time
-- Capable of easily managing playlists of 1000+ songs
+- Dynamically updates the playlists of multiple users (works consistently for ~20 users)
+- Capable of managing playlists of 2500+ songs
 - Custom playlist covers (the user's profile picture) which are downloaded and uploaded to Spotify
 
 ## Steps to use
