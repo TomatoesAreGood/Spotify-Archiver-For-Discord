@@ -1,5 +1,5 @@
 # Spotify Archiver For Discord
- A Discord bot which tracks users' Spotify listening activity, and compiles the songs into a Spotify playlist.
+ A Discord bot which tracks users' Spotify listening activity, and compiles the songs into a Spotify playlist. 
 
 ![image](https://github.com/TomatoesAreGood/Spotify-Archiver-For-Discord/assets/139704217/57c1a172-24c3-40ca-b1d2-d92d6efd2a7f)
 
